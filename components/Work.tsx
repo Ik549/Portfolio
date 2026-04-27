@@ -4,45 +4,61 @@ import { motion } from 'motion/react';
 import SectionHeading from './SectionHeading';
 
 type Project = {
-  year: string;
   num: string;
+  year: string;
+  category: string;
   title: string;
   role: string;
   blurb: string;
   tags: string[];
   status: string;
+  href?: string;
 };
 
 const projects: Project[] = [
   {
     num: '01',
     year: '2026',
+    category: 'Engineering / Design',
     title: 'IFN Toolkit v2',
-    role: 'Design, Engineering',
+    role: 'Solo — Design, Architecture, Build',
     blurb:
       'A system-tray productivity suite for legal practice. Notes, Court Diary, and Settings behind a single icon — summoned instantly, dismissed without thought. Rebuilt from scratch around a navy palette and a keyboard-first flow.',
-    tags: ['Python', 'PyQt', 'SQLite', 'Windows'],
+    tags: ['Python', 'PyQt6', 'SQLite', 'Windows'],
     status: 'Shipped',
   },
   {
     num: '02',
     year: '2025',
+    category: 'Engineering',
     title: 'Research Clipper',
-    role: 'Engineering',
+    role: 'Solo — Engineering',
     blurb:
-      'A lightweight capture tool for judgment excerpts and citations. Tags by matter, so research assembled over weeks surfaces in seconds when you need it at a hearing.',
-    tags: ['Python', 'Tkinter'],
+      'A capture tool for judgment excerpts and citations, tagged by matter. Research assembled over weeks surfaces in seconds when you need it at a hearing.',
+    tags: ['Python', 'Tkinter', 'JSON'],
     status: 'Live',
   },
   {
     num: '03',
     year: '2025',
+    category: 'Engineering',
     title: 'Brief Formatter',
-    role: 'Engineering',
+    role: 'Solo — Engineering',
     blurb:
-      'A formatting utility for pleadings — consistent margins, citation styling, auto-numbered paragraphs. The last-mile polish before filing, automated.',
+      'Formatting utility for pleadings — consistent margins, citation styling, auto-numbered paragraphs. Last-mile polish before filing, automated.',
     tags: ['Python', 'python-docx'],
     status: 'Internal',
+  },
+  {
+    num: '04',
+    year: '2024–25',
+    category: 'Policy Writing',
+    title: 'IP Reform in Nigeria\'s Creative Economy',
+    role: 'Author',
+    blurb:
+      'A series of essays arguing for a protective yet generative IP regime that rewards original thinking in Nigeria\'s technology and entertainment sectors.',
+    tags: ['IP Law', 'Fintech Policy', 'Publishing'],
+    status: 'Ongoing',
   },
 ];
 
@@ -74,9 +90,9 @@ function ProjectRow({ p, i }: { p: Project; i: number }) {
     <motion.article
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 1, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative border-b border-ink/20 py-10 md:py-14 cursor-pointer"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 1, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative border-b border-ink/20"
     >
       {/* crimson wash on hover */}
       <span
@@ -84,35 +100,50 @@ function ProjectRow({ p, i }: { p: Project; i: number }) {
         className="absolute inset-0 bg-crimson origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
       />
 
-      <div className="relative grid md:grid-cols-[auto_1fr_auto] gap-6 md:gap-12 items-baseline transition-colors duration-500 group-hover:text-paper">
-        <div className="flex items-baseline gap-6 md:gap-10">
-          <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-muted group-hover:text-paper/70 transition-colors duration-500">
-            {p.num}
-          </span>
-          <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-muted group-hover:text-paper/70 transition-colors duration-500">
-            {p.year}
-          </span>
+      <div className="relative py-10 md:py-14 transition-colors duration-500 group-hover:text-paper">
+
+        {/* metadata strip */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-1 mb-6 font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted group-hover:text-paper/50 transition-colors duration-500">
+          <span>{p.num}</span>
+          <span className="h-px w-4 bg-current opacity-40" />
+          <span>{p.year}</span>
+          <span className="h-px w-4 bg-current opacity-40" />
+          <span>{p.category}</span>
         </div>
-        <div>
-          <h3 className="font-display font-light text-display-sm leading-none">
-            {p.title}
-          </h3>
-          <p className="mt-4 max-w-2xl font-display text-lg leading-snug text-ink/80 group-hover:text-paper/90 transition-colors duration-500">
-            {p.blurb}
-          </p>
-          <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted group-hover:text-paper/70 transition-colors duration-500">
-            {p.tags.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="text-right md:min-w-[140px]">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-muted group-hover:text-paper/70 transition-colors duration-500">
-            {p.role}
-          </p>
-          <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.25em] text-crimson group-hover:text-paper transition-colors duration-500">
-            &rarr; {p.status}
-          </p>
+
+        {/* main layout: title left, blurb + meta right */}
+        <div className="md:grid md:grid-cols-[1fr_1fr] md:gap-16 items-start">
+          {/* title col */}
+          <div className="mb-6 md:mb-0">
+            <h3 className="font-display font-light text-display-sm leading-[0.95] tracking-tight">
+              {p.title}
+            </h3>
+          </div>
+
+          {/* description col */}
+          <div>
+            <p className="font-display text-lg leading-relaxed text-ink/75 group-hover:text-paper/85 transition-colors duration-500 mb-8">
+              {p.blurb}
+            </p>
+
+            {/* tags + status + role */}
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <ul className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted group-hover:text-paper/50 transition-colors duration-500">
+                {p.tags.map((t) => (
+                  <li key={t}>{t}</li>
+                ))}
+              </ul>
+
+              <div className="text-right flex-shrink-0">
+                <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted group-hover:text-paper/50 transition-colors duration-500">
+                  {p.role}
+                </p>
+                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson group-hover:text-paper transition-colors duration-500">
+                  &rarr; {p.status}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </motion.article>

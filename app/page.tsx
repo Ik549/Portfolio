@@ -2,6 +2,7 @@ import Loader from '@/components/Loader';
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import Manifesto from '@/components/Manifesto';
+import Stats from '@/components/Stats';
 import Marquee from '@/components/Marquee';
 import Pillars from '@/components/Pillars';
 import Work from '@/components/Work';
@@ -17,6 +18,7 @@ export default function Home() {
       <main>
         <Hero />
         <Manifesto />
+        <Stats />
         <Marquee text="Law &middot; Innovation &middot; Impact" variant="outlined" />
         <Pillars />
         <Work />

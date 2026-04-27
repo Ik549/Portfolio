@@ -1,6 +1,36 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
+import { useEffect, useState } from 'react';
+
+const CYCLE_WORDS = ['Law.', 'Innovation.', 'Impact.'];
+
+function CyclingWord() {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % CYCLE_WORDS.length), 2200);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <span className="inline-block relative align-bottom overflow-hidden"
+      style={{ minWidth: '9ch' }}>
+      <AnimatePresence mode="wait">
+        <motion.em
+          key={idx}
+          initial={{ y: '100%', opacity: 0 }}
+          animate={{ y: '0%', opacity: 1 }}
+          exit={{ y: '-100%', opacity: 0 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="text-crimson not-italic block"
+        >
+          {CYCLE_WORDS[idx]}
+        </motion.em>
+      </AnimatePresence>
+    </span>
+  );
+}
 
 export default function Hero() {
   return (
@@ -68,12 +98,12 @@ export default function Hero() {
         transition={{ duration: 1, delay: 2.4, ease: [0.22, 1, 0.36, 1] }}
         className="grid md:grid-cols-[1fr_auto] gap-6 items-end"
       >
-        <p className="font-display text-xl md:text-2xl leading-snug text-ink max-w-xl">
-          Working at the intersection of <em className="text-crimson not-italic">law</em>,
-          <em className="text-crimson not-italic"> innovation</em>, and
-          <em className="text-crimson not-italic"> impact</em> &mdash; writing briefs
-          by day, building software by night, and arguing for better IP protections
-          for Nigeria&rsquo;s creative economy the rest of the time.
+        <p className="font-display text-xl md:text-2xl leading-snug text-ink max-w-xl flex flex-wrap items-baseline gap-x-[0.3em]">
+          <span>Working at the intersection of</span>
+          <CyclingWord />
+          <span>Writing briefs by day, building software by night, and arguing
+          for better IP protections for Nigeria&rsquo;s creative economy the
+          rest of the time.</span>
         </p>
         <a
           href="#work"

@@ -89,3 +89,48 @@ html.lenis body {
 .font-display-expressive {
   font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 0;
 }
+
+/* ─── Custom cursor ────────────────────────────────────────── */
+@media (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+
+  .cursor-dot {
+    position: fixed;
+    top: -4px;
+    left: -4px;
+    width: 8px;
+    height: 8px;
+    background: #000;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    will-change: transform;
+    transition: opacity 0.3s;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    top: -18px;
+    left: -18px;
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid #000;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    mix-blend-mode: difference;
+    will-change: transform;
+    transition: opacity 0.3s, width 0.4s cubic-bezier(0.22,1,0.36,1),
+                height 0.4s cubic-bezier(0.22,1,0.36,1),
+                top 0.4s cubic-bezier(0.22,1,0.36,1),
+                left 0.4s cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .cursor-ring[data-hover] {
+    top: -28px;
+    left: -28px;
+    width: 56px;
+    height: 56px;
+  }
+}

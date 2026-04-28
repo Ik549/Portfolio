@@ -46,26 +46,35 @@ export default function Pillars() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 1, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="group bg-paper p-8 md:p-10 py-12 md:py-16 flex flex-col gap-8 hover:bg-paper-dark transition-colors duration-500"
+            className="group relative bg-paper p-8 md:p-10 py-12 md:py-16 flex flex-col gap-8 hover:bg-ink transition-colors duration-700 overflow-hidden"
           >
-            <div className="flex items-start justify-between">
-              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-muted">
+            {/* decorative background numeral */}
+            <span
+              aria-hidden
+              className="pointer-events-none select-none absolute -bottom-6 -right-4 font-display font-light leading-none text-ink/[0.06] group-hover:text-paper/[0.06] transition-colors duration-700"
+              style={{ fontSize: 'clamp(6rem, 14vw, 11rem)' }}
+            >
+              {p.num}
+            </span>
+
+            <div className="relative flex items-start justify-between">
+              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-muted group-hover:text-paper/40 transition-colors duration-700">
                 {p.num}
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-muted">
+              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-muted group-hover:text-paper/40 transition-colors duration-700">
                 0{i + 1} / 03
               </span>
             </div>
-            <h3 className="font-display text-display-sm font-light italic text-crimson leading-none">
+            <h3 className="relative font-display text-display-sm font-light italic text-crimson leading-none group-hover:text-paper transition-colors duration-700">
               {p.title}.
             </h3>
-            <p className="font-display text-lg md:text-xl leading-snug text-ink/90 flex-1">
+            <p className="relative font-display text-lg md:text-xl leading-snug text-ink/90 group-hover:text-paper/80 transition-colors duration-700 flex-1">
               {p.body}
             </p>
-            <ul className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted space-y-1">
+            <ul className="relative font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted group-hover:text-paper/40 transition-colors duration-700 space-y-1">
               {p.tags.map((t) => (
                 <li key={t} className="flex items-center gap-2">
-                  <span className="w-4 h-px bg-current" />
+                  <span className="w-4 h-px bg-current opacity-50" />
                   {t}
                 </li>
               ))}

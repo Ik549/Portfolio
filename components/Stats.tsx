@@ -2,78 +2,50 @@
 
 import { motion } from 'motion/react';
 
-const CREDENTIALS = [
-  {
-    num: '01',
-    label: 'Current Position',
-    value: 'Trainee Associate',
-    sub: 'Wole Olanipekun & Co.',
-    note: 'Lagos, Nigeria',
-  },
-  {
-    num: '02',
-    label: 'Flagship Project',
-    value: 'IFN Toolkit v2',
-    sub: 'Legal productivity suite',
-    note: 'Shipped 2026',
-  },
-  {
-    num: '03',
-    label: 'Focus Area',
-    value: 'IP & Technology Law',
-    sub: 'Policy writing & reform',
-    note: 'Fintech · Creative economy',
-  },
-  {
-    num: '04',
-    label: 'Location',
-    value: 'Lagos, Nigeria',
-    sub: 'GMT+1',
-    note: 'Available for advisory',
-  },
+const METRICS = [
+  { value: '03', label: 'Years in practice', note: 'WO & Co.' },
+  { value: '12+', label: 'Tools shipped', note: 'Python / PyQt' },
+  { value: '02', label: 'Practice areas', note: 'Litigation · IP' },
+  { value: '01', label: 'City', note: 'Lagos, Nigeria' },
 ];
 
 export default function Stats() {
   return (
-    <section className="relative bg-ink py-24 md:py-36 px-6 md:px-12 overflow-hidden">
-      {/* background large numeral watermark */}
+    <section className="relative bg-ink overflow-hidden">
+      {/* ambient large text watermark */}
       <span
         aria-hidden
-        className="pointer-events-none absolute right-0 bottom-0 font-display font-light text-[clamp(12rem,40vw,32rem)] leading-none tracking-tighter text-paper/[0.03] select-none translate-y-1/4"
+        className="pointer-events-none select-none absolute -right-8 bottom-0 font-display font-light leading-none tracking-tighter text-paper/[0.04]"
+        style={{ fontSize: 'clamp(10rem, 35vw, 28rem)' }}
       >
         IN.
       </span>
 
-      {/* top rule + eyebrow */}
-      <div className="flex items-baseline gap-4 font-mono text-[11px] uppercase tracking-[0.25em] text-paper/30 mb-16 md:mb-24">
-        <span>02</span>
-        <span className="flex-1 h-px bg-paper/20" />
-        <span>Credentials</span>
-      </div>
-
-      {/* grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-paper/10">
-        {CREDENTIALS.map((c, i) => (
+      {/* metrics row */}
+      <div className="relative grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-paper/10">
+        {METRICS.map((m, i) => (
           <motion.div
-            key={c.num}
-            initial={{ opacity: 0, y: 32 }}
+            key={m.label}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 1, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-ink px-8 py-10 md:py-12 group"
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 1, delay: i * 0.09, ease: [0.22, 1, 0.36, 1] }}
+            className="group px-8 md:px-12 py-14 md:py-20 flex flex-col justify-between gap-10"
           >
-            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-paper/30 mb-8">
-              {c.num} &mdash; {c.label}
+            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-paper/25">
+              {m.label}
             </p>
-            <p className="font-display font-light text-[clamp(1.4rem,2.2vw,2rem)] leading-[1.05] text-paper mb-4 group-hover:text-crimson transition-colors duration-500">
-              {c.value}
-            </p>
-            <p className="font-display text-base text-paper/60 leading-snug">
-              {c.sub}
-            </p>
-            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.25em] text-paper/25">
-              {c.note}
-            </p>
+            <div>
+              <p
+                className="font-display font-light text-paper leading-none tracking-tight group-hover:text-crimson transition-colors duration-500"
+                style={{ fontSize: 'clamp(3.5rem, 7vw, 7rem)' }}
+              >
+                {m.value}
+              </p>
+              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.25em] text-paper/30">
+                {m.note}
+              </p>
+            </div>
           </motion.div>
         ))}
       </div>
@@ -83,15 +55,16 @@ export default function Stats() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 1.2, delay: 0.4, ease: 'easeOut' }}
-        className="mt-16 md:mt-24 max-w-3xl"
+        transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
+        className="relative border-t border-paper/10 px-8 md:px-12 py-12 md:py-16 grid md:grid-cols-[auto_1fr] gap-8 md:gap-20 items-center"
       >
-        <p className="font-display font-light text-[clamp(1.5rem,3vw,2.4rem)] leading-[1.15] text-paper/80 italic">
+        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-paper/25 whitespace-nowrap">
+          On record &mdash;
+        </p>
+        <p className="font-display font-light italic text-paper/75"
+          style={{ fontSize: 'clamp(1.2rem, 2.5vw, 2rem)' }}>
           &ldquo;The law shapes what people can build.
           I&rsquo;d rather be the one who shapes both.&rdquo;
-        </p>
-        <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.25em] text-paper/30">
-          &mdash; Ikenna Nwana
         </p>
       </motion.div>
     </section>

@@ -3,6 +3,7 @@ import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import SmoothScroll from '@/components/SmoothScroll';
 import Grain from '@/components/Grain';
+import Cursor from '@/components/Cursor';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -47,6 +48,7 @@ export default function RootLayout({
     >
       <body>
         <Grain />
+        <Cursor />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
